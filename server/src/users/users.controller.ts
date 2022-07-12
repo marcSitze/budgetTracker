@@ -5,6 +5,7 @@ import {
   Get,
   ParseIntPipe,
   Param,
+  Put,
   Delete,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
@@ -15,10 +16,11 @@ import { User } from './user.entity';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  // @Post()
-  // create(@Body() createUserDto: CreateUserDto): Promise<User> {
-  //   return this.usersService.create(createUserDto);
-  // }
+  @Post()
+  create(@Body() createUserDto: CreateUserDto): Promise<User> {
+    console.log('body: ', createUserDto);
+    return this.usersService.create(createUserDto);
+  }
 
   @Get()
   findAll(): Promise<User[]> {
@@ -28,6 +30,14 @@ export class UsersController {
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: string): Promise<User> {
     return this.usersService.findOne(id);
+  }
+
+  @Put(':id')
+  update(
+    @Param('id') id: string,
+    @Body() data: Partial<CreateUserDto>,
+  ): Promise<User> {
+    return this.usersService.update(id, data);
   }
 
   @Delete(':id')
