@@ -8,7 +8,7 @@ import { AppService } from './app.service';
 // Entities
 import { User } from './users/user.entity';
 import { UsersModule } from './users/users.module';
-
+import { BudgetModule } from './budget/budget.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -23,6 +23,7 @@ import { UsersModule } from './users/users.module';
       synchronize: true,
     }),
     UsersModule,
+    BudgetModule,
   ],
   controllers: [AppController],
   providers: [AppService],
