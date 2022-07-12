@@ -15,6 +15,9 @@ export class UsersService {
     const user = new User();
     user.firstName = createUserDto.firstName;
     user.lastName = createUserDto.lastName;
+    user.email = createUserDto.email;
+    user.password = createUserDto.password;
+    user.data = [];
 
     return this.usersRepository.save(user);
   }
@@ -25,6 +28,16 @@ export class UsersService {
 
   findOne(id: string): Promise<User> {
     return this.usersRepository.findOneBy({ id: id });
+  }
+
+  async update(id: string, data: Partial<CreateUserDto>): Promise<User> {
+    await this.usersRepository
+      .createQueryBuilder()
+      .update(User)
+      .set(data)
+      .where('id = :id', { id })
+      .execute();
+    return this.usersRepository.findOneBy({ id });
   }
 
   async remove(id: string): Promise<void> {
