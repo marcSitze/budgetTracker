@@ -15,6 +15,7 @@ export class BudgetController {
   @Post()
   async create(@Body() createBudgetDto: CreateBudgetDto): Promise<User> {
     console.log('body: ', createBudgetDto);
+    console.log('body: ', createBudgetDto);
     const user = await this.usersService.findOne(createBudgetDto.user);
     return this.budgetService.create(createBudgetDto, user);
   }
