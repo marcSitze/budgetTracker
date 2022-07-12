@@ -6,6 +6,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+import { CreateBudgetDto } from 'src/budget/dto/create-budget.dto';
+
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -17,14 +19,27 @@ export class User {
   @Column()
   lastName: string;
 
-  // @Column({ type: 'timestamptz' })
-  // createdAt: string;
+  @Column()
+  email: string;
 
-  // @Column({ type: 'timestamptz' })
-  // updatedAt: string;
+  @Column()
+  password: string;
+
+  @Column('simple-array')
+  data: string[];
+
   @CreateDateColumn()
   createdAt: Date;
 
   @UpdateDateColumn()
   updatedAt: Date;
 }
+
+type Item = {
+  id: string;
+  type: string;
+  value: number;
+  description: string;
+  currency: string;
+  time: string;
+};
